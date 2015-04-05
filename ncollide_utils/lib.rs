@@ -11,6 +11,7 @@
 #![feature(unsafe_destructor)]
 #![feature(old_orphan_check)]
 #![feature(core)]
+#![feature(convert)]
 #![feature(collections)]
 #![feature(std_misc)]
 #![feature(rand)]

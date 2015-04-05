@@ -1,3 +1,4 @@
+use std::marker::Reflect;
 use std::any::TypeId;
 
 pub trait AnyPrivate {
@@ -7,7 +8,9 @@ pub trait AnyPrivate {
     fn get_dyn_type_id(&self) -> TypeId;
 }
 
-impl<T: 'static> AnyPrivate for T {
+impl<T: 'static> AnyPrivate for T 
+    where T: Reflect
+{
     #[inline]
     fn get_dyn_type_id(&self) -> TypeId {
         TypeId::of::<T>()

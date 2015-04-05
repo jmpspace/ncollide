@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub, Mul};
+use std::ops::{Add, Sub, Mul, Neg};
 use std::num::Float;
 use rand::{self, Rand};
 use na::{Inv, POrd, SquareMat, Outer, Dot, RMul};
@@ -71,7 +71,7 @@ pub fn minimize_with_bfgs<N, V, M, F: Fn(&V) -> N, D: Fn(&V) -> V>(
                           df: &mut D)
                           -> (V, N)
     where N: Scalar,
-          V: Vect<N> + Outer<M>,
+          V: Vect<N> + Outer<M> + Neg<Output = V>,
           M: SquareMat<N, V> + Add<M, Output = M> + Sub<M, Output = M> + Clone + Copy {
     let mut best_sol     = domain_min.clone();
     let mut best_sol_val = (*f)(domain_min);
@@ -158,7 +158,7 @@ pub fn bfgs<N, V, M, SS, F: Fn(&V) -> N, D: Fn(&V) -> V>(
             df:      &mut D)
             -> V
     where N:  Scalar,
-          V:  Vect<N> + Outer<M>,
+          V:  Vect<N> + Outer<M> + Neg<Output = V>,
           M:  SquareMat<N, V> + Add<M, Output = M> + Sub<M, Output = M> + Clone + Copy,
           SS: LineSearch<N, V> {
     let mut x  = guess;
